@@ -1,0 +1,9 @@
+# Ignore everything except what we COPY
+*
+!requirements.txt
+!pyproject.toml
+!src/**/*.py
+
+#src/*.egg-info
+#**/*.pyc
+#**/__pycache__/

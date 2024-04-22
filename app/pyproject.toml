@@ -1,0 +1,7 @@
+[project]
+name        = "bad-app"
+description = "A bad app that needs a good debugging"
+version     = "0.1.0"
+
+[project.scripts]
+badapp = "badapp.cli.serve:main"

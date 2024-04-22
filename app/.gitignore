@@ -1,0 +1,5 @@
+# Python stuff
+*.pyc
+__pycache__/
+*.egg-info
+build/

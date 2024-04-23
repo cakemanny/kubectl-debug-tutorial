@@ -45,15 +45,12 @@ Draft for py-spy
 
 kubectl run bad-app --image=badapp:latest --image-pull-policy=Never --restart=Never
 
+make load
+kubectl debug -it bad-app --image=debug-tools --image-pull-policy=Never --target=bad-app
 
-kubectl debug -it bad-app --image=python:3.11 --target=bad-app -- bash --login -i
-
-    pip install py-spy
     py-spy dump --pid 1
     py-spy top --pid 1
-    py-spy record --pid 1
-
-    mv *.svg flame.svg
+    py-spy record --pid 1 -o flame.svg --duration 10
 
 kubectl cp bad-app:/flame.svg -c debugger-jh9fj $PWD/flame.svg
                                  ^------------^

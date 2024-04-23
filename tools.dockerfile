@@ -6,4 +6,4 @@ RUN apt-get update && \
 
 RUN pip install py-spy
 
-CMD ["bash", "-i", "--login"]
+CMD ["bash", "--login", "-i"]

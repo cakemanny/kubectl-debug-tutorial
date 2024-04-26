@@ -1,0 +1,10 @@
+# vim: ft=tiltfile syntax=bzl
+
+k8s_yaml(['k8s/k8s.yaml'])
+load('ext://helm_resource', 'helm_resource', 'helm_repo')
+helm_repo('grafana', 'https://grafana.github.io/helm-charts')
+helm_resource(
+    'pyroscope', 'grafana/pyroscope',
+    namespace='pyroscope-test',
+    resource_deps=['grafana']
+)

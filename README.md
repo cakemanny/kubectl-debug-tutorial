@@ -44,9 +44,12 @@ Draft for py-spy
 (cd app && make load)
 
 kubectl run bad-app --image=badapp:latest --image-pull-policy=Never --restart=Never
+kubectl port-forward pod/bad-app &  # or in another terminal
 
 make load
-kubectl debug -it bad-app --image=debug-tools --image-pull-policy=Never --target=bad-app
+kubectl debug -it bad-app --image=debug-tools --image-pull-policy=Never --profile=general --target=bad-app
+                  ^-----^                                                                          ^-----^
+#                target pod                                                                     target continer
 
     py-spy dump --pid 1
     py-spy top --pid 1
@@ -57,4 +60,13 @@ kubectl cp bad-app:/flame.svg -c debugger-jh9fj $PWD/flame.svg
 
   k get po bad-app -ojson | jq -r '.spec.ephemeralContainers[-1].name'
 
+
+kubectl debug -it backend-689b8cc9-9572s --image=debug-tools --image-pull-policy=Never --profile=general --target=uwsgi
+
 -->
+
+
+Further Reading:
+
+- https://github.com/aylei/kubectl-debug/blob/master/docs/examples.md
+- https://www.cncf.io/blog/2022/03/25/koolkits-kubernetes-debugging-reimageined/

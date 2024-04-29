@@ -2,8 +2,8 @@
 *
 !requirements.txt
 !pyproject.toml
-!src/**/*.py
+!src/
 
-#src/*.egg-info
-#**/*.pyc
-#**/__pycache__/
+src/*.egg-info
+**/*.pyc
+**/__pycache__/

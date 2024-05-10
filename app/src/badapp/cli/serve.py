@@ -12,9 +12,12 @@ class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
 
 class MyHandler(http.server.BaseHTTPRequestHandler):
 
+    def _hash_password(self, password):
+        return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
     def do_GET(self):
         # do work
-        pw = bcrypt.hashpw("has hash ash".encode(), bcrypt.gensalt()).decode()
+        pw = self._hash_password("has hash ash")
         self.respond_simple(
             HTTPStatus.OK,
             f'is this what you are looking for?: {pw}',

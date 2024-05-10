@@ -20,7 +20,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         pw = self._hash_password("has hash ash")
         self.respond_simple(
             HTTPStatus.OK,
-            f'is this what you are looking for?: {pw}',
+            f'is this what you are looking for?: {pw}\n',
         )
 
     def respond_simple(

@@ -7,7 +7,7 @@
 - [ ] startup issue - crash due to bad settings
 
   - kubectl debug --copy-to
-    - need to disable
+    - todo: can we disable healthchecks?
 
 2.
 

@@ -5,6 +5,8 @@ import socketserver
 
 import bcrypt
 
+evil_global_leak_bucket = []
+
 
 class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
     pass
@@ -13,11 +15,17 @@ class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
 class MyHandler(http.server.BaseHTTPRequestHandler):
 
     def do_GET(self):
+        if self.path == '/leak':
+            for _ in range(1000):
+                evil_global_leak_bucket.append(b'x' * 1000)
+            self.respond_simple(
+                HTTPStatus.OK, f'I think my bucket has a hole in it...\n',
+            )
         # do work
         pw = bcrypt.hashpw("has hash ash".encode(), bcrypt.gensalt()).decode()
         self.respond_simple(
             HTTPStatus.OK,
-            f'is this what you are looking for?: {pw}',
+            f'is this what you are looking for?: {pw}\n',
         )
 
     def respond_simple(

@@ -39,12 +39,12 @@ Use holistic non-intrusive debugging techniques
 - bpftrace
 
 <!--
-Draft for py-spy
+## Draft for py-spy
 
-(cd app && make load)
+make -C app load
 
 kubectl run bad-app --image=badapp:latest --image-pull-policy=Never --restart=Never
-kubectl port-forward pod/bad-app &  # or in another terminal
+kubectl port-forward pod/bad-app 8000:8000 &  # or in another terminal
 
 make load
 kubectl debug -it bad-app --image=debug-tools --image-pull-policy=Never --profile=general --target=bad-app
@@ -65,6 +65,37 @@ kubectl debug -it backend-689b8cc9-9572s --image=debug-tools --image-pull-policy
 
 -->
 
+<!--
+
+## Run badapp with a memory limit
+
+kubectl run bad-app --image=badapp:latest --image-pull-policy=Never --restart=Never \
+  --overrides='{
+    "spec": {
+        "containers": [
+            {
+                "name": "bad-app",
+                "image": "badapp:latest",
+                "resources": {
+                    "requests": {
+                        "memory": "128Mi"
+                    },
+                    "limits": {
+                        "memory": "128Mi"
+                    }
+                },
+                "imagePullPolicy": "Never"
+            }
+        ]
+    }
+}'
+
+TODO: I think the cluster nodes need to have a memory limit for this to
+end up being effectful.
+https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#my-container-is-terminated
+> If a container exceeds its memory request and the node that it runs on becomes short of memory overall, it is likely that the Pod the container belongs to will be evicted.
+
+-->
 
 Further Reading:
 

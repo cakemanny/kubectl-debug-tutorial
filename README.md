@@ -252,6 +252,10 @@ docker image rm debug-tools:latest badapp:latest
 
 ## Further Reading
 
-- The KEP for `kubectl debug` includes
+- The KEP for `kubectl debug` includes some nice [motivation][kep-kmotivation]
+  and [user stories][kep-user-stories]
   https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/1441-kubectl-debug/README.md
 - https://www.cncf.io/blog/2022/03/25/koolkits-kubernetes-debugging-reimageined/
+
+[kep-motivation]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/1441-kubectl-debug/README.md#motivation
+[kep-user-stories]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/1441-kubectl-debug/README.md#user-stories
